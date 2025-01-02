@@ -59,6 +59,7 @@ class UserAccount {
   const userIdInput = document.getElementById("user-id");
   const pinInput = document.getElementById("pin");
   const amountInput = document.getElementById("amount");
+  const addUser = document.getElementById("add-user")
   
   //Login Functionality
   document.getElementById("login-btn").addEventListener("click", () => {
@@ -134,6 +135,26 @@ function saveDataToFile() {
   a.click();
   document.body.removeChild(a);
 }
+
+//function to add new user
+function addNewUser() {
+  const newUserId = prompt("Enter new User ID:");
+  const newPin = prompt("Enter new PIN:");
+  const initialBalance = parseFloat(prompt("Enter initial balance:"));
+
+  if (newUserId && newPin && !isNaN(initialBalance) && initialBalance >= 0) {
+    currentAccount = new UserAccount(newUserId, newPin, initialBalance);
+    alert("New user added successfully.");
+    loginSection.style.display = "none";
+    atmSection.style.display = "block";
+    welcomeMessage.textContent = `Welcome, ${currentAccount.userId}!`;
+    updateBalance();
+  } else {
+    alert("Invalid input. Please try again.");
+  }
+}
+
+addUser.addEventListener("click", addNewUser);
 
 // Add event listener for saving data
 saveDataBtn.addEventListener("click", saveDataToFile);
